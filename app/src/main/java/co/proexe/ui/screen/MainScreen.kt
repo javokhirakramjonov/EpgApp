@@ -29,9 +29,9 @@ class MainScreen : Fragment(R.layout.screen_drawer) {
 
     private val viewModel: MainScreenViewModel by viewModels<MainScreenViewModelImpl>()
     private val binding by viewBinding(ScreenDrawerBinding::bind)
-    private val adapterChannel = ChannelAdapter()
-    private val adapterTime = TimeAdapter()
-    private val adapterDrawer = DrawerAdapter()
+    private var adapterChannel : ChannelAdapter? = ChannelAdapter()
+    private var adapterTime : TimeAdapter? = TimeAdapter()
+    private var adapterDrawer : DrawerAdapter? = DrawerAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,13 +45,13 @@ class MainScreen : Fragment(R.layout.screen_drawer) {
 
         binding.apply {
             mainScreen.apply {
-                adapterChannel.setSelector {
+                adapterChannel?.setSelector {
                     viewModel.selectProgram(it)
                 }
                 rvChannel.adapter = adapterChannel
                 rvChannel.layoutManager = LinearLayoutManager(requireContext())
 
-                adapterTime.setSelector {
+                adapterTime?.setSelector {
                     viewModel.selectTime(it)
                 }
                 rvTime.adapter = adapterTime
@@ -67,7 +67,7 @@ class MainScreen : Fragment(R.layout.screen_drawer) {
                 }
             }
 
-            adapterDrawer.setSelector {
+            adapterDrawer?.setSelector {
                 viewModel.selectProgramCategory(it)
             }
             rvProgrammes.adapter = adapterDrawer
@@ -104,7 +104,7 @@ class MainScreen : Fragment(R.layout.screen_drawer) {
         binding.apply {
             username.text = it.accountInfo.userName
             userId.text = "${it.accountInfo.userAccountValue}"
-            adapterDrawer.submitList(it.drawerItem)
+            adapterDrawer?.submitList(it.drawerItem)
         }
     }
 
@@ -117,11 +117,18 @@ class MainScreen : Fragment(R.layout.screen_drawer) {
     }
 
     private val timesObserver = Observer<List<DayTile>> {
-        adapterTime.submitList(it)
+        adapterTime?.submitList(it)
     }
 
     private val programmesObserver = Observer<List<TvProgramme>> {
-        adapterChannel.submitList(it)
+        adapterChannel?.submitList(it)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        adapterChannel = null
+        adapterTime = null
+        adapterDrawer = null
     }
 
 }
