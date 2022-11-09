@@ -80,7 +80,7 @@ class LocalEpgRepository @Inject constructor() {
     companion object {
         private const val PROGRAMMES_LIST_SIZE = 10
 
-        private val IMAGE_URLS = listOf(
+        val IMAGE_URLS = listOf(
             "https://www.dropbox.com/s/9u7kw2knftcur8v/channel_logo_09.png?dl=1",
             "https://www.dropbox.com/s/3lzgp0nmmku61d6/channel_logo_06.png?dl=1",
             "https://www.dropbox.com/s/mkqh6xp1i6a93vb/channel_logo_08.png?dl=1",
@@ -92,7 +92,7 @@ class LocalEpgRepository @Inject constructor() {
             "https://www.dropbox.com/s/zfjplpzz9k1udlv/channel_logo_01.png?dl=1"
         )
 
-        private val TITLES = listOf(
+        val TITLES = listOf(
             "Ukryta prawda",
             "Pojedynek",
             "Wikingowie, odc. 5, sezon 8",
@@ -104,7 +104,7 @@ class LocalEpgRepository @Inject constructor() {
             "Hobbit"
         )
 
-        private val TYPES = listOf(
+        val TYPES = listOf(
             "Serial paradokumentalny",
             "Kryminał",
             "Historyczny",
