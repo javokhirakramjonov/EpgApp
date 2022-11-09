@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#202027</color>
+    <color name="colorPrimaryDark">#FF202027</color>
+    <color name="colorAccent">#FF4197CA</color>
+    <color name="colorDivider">#0DFFFFFF</color>
+    <color name="colorRecyclerViewTimeBackground">#FF36363E</color>
+    <color name="colorRecyclerViewChannelBackground">#FF1F1F25</color>
+    <color name="colorRecyclerViewTimeItemNotSelected">#FF67676D</color>
+    <color name="colorText">#FFDADADA</color>
+    <color name="colorStatusBar">#FF151519</color>
+    <color name="white">#FFFFFF</color>
+</resources>

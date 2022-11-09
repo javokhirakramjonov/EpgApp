@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Epg App</string>
+    <string name="nav_drawer_main_screen">Strong główna</string>
+    <string name="day_before_yesterday">Przedwczoraj</string>
+    <string name="yesterday">Wczoraj</string>
+    <string name="today">Dzisiaj</string>
+    <string name="tomorrow">Jutro</string>
+    <string name="day_after_tomorrow">Pojutrze</string>
+    <string name="drawer_main_page">Strona Główna</string>
+    <string name="drawer_tv_programme">Program TV</string>
+    <string name="drawer_channels">Kanały</string>
+    <string name="drawer_favourites">Ulubione</string>
+    <string name="drawer_recordings">Nagrania</string>
+    <string name="drawer_movies">Filmy</string>
+    <string name="drawer_series">Seriale</string>
+    <string name="drawer_kids">Dla dzieci</string>
+</resources>
