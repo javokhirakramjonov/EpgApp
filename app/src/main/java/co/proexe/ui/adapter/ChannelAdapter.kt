@@ -12,6 +12,11 @@ import java.util.*
 class ChannelAdapter : RecyclerView.Adapter<ChannelAdapter.ViewHolder>() {
 
     private lateinit var list: List<TvProgramme>
+    private var itemSelector : ((TvProgramme) -> Unit)? = null
+
+    fun setSelector(selector: (TvProgramme) -> Unit) {
+        itemSelector = selector
+    }
 
     fun submitList(list: List<TvProgramme>) {
         this.list = list
@@ -20,6 +25,13 @@ class ChannelAdapter : RecyclerView.Adapter<ChannelAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemChannelBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                itemSelector?.invoke(list[absoluteAdapterPosition])
+            }
+        }
+
         fun bind() {
             val item = list[absoluteAdapterPosition]
             binding.apply {

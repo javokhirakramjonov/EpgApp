@@ -3,6 +3,7 @@
 
     <style name="Theme.EpgTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:colorPrimary">@color/colorPrimary</item>
         <item name="fontFamily">@font/poppins</item>
     </style>
 </resources>

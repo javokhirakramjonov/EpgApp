@@ -3,27 +3,28 @@ package co.proexe.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import co.proexe.databinding.ItemTimeBinding
-import co.proexe.model.data.DayTile
+import co.proexe.databinding.ItemProgrammeBinding
+import co.proexe.model.data.NavigationDrawerItem
 import co.proexe.utils.changeColorBySelection
 
-class TimeAdapter : RecyclerView.Adapter<TimeAdapter.ViewHolder>() {
+class DrawerAdapter : RecyclerView.Adapter<DrawerAdapter.ViewHolder>() {
 
-    private lateinit var list: List<DayTile>
+    private lateinit var list: List<NavigationDrawerItem>
     private var selectedElement = -1
-    private var itemSelector: ((DayTile) -> Unit)? = null
+    private var itemSelector : ((NavigationDrawerItem) -> Unit)? = null
 
-    fun setSelector(selector: (DayTile) -> Unit) {
+    fun setSelector(selector: (NavigationDrawerItem) -> Unit) {
         itemSelector = selector
     }
 
-    fun submitList(list: List<DayTile>) {
+    fun submitList(list: List<NavigationDrawerItem>) {
         this.list = list
         selectedElement = list.indexOfFirst { it.isSelected }
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(val binding: ItemTimeBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemProgrammeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.title.setOnClickListener {
@@ -41,7 +42,7 @@ class TimeAdapter : RecyclerView.Adapter<TimeAdapter.ViewHolder>() {
         fun bind() {
             val item = list[absoluteAdapterPosition]
             binding.apply {
-                title.text = binding.root.context.getString(item.dayLabel)
+                title.text = binding.root.context.getString(item.labelId)
                 title.changeColorBySelection(root.context, item.isSelected)
             }
         }
@@ -49,7 +50,7 @@ class TimeAdapter : RecyclerView.Adapter<TimeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ItemTimeBinding.inflate(
+            ItemProgrammeBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -61,7 +62,11 @@ class TimeAdapter : RecyclerView.Adapter<TimeAdapter.ViewHolder>() {
         holder.bind()
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
+    override fun onBindViewHolder(
+        holder: DrawerAdapter.ViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
         if (payloads.isEmpty()) {
             super.onBindViewHolder(holder, position, payloads)
         } else {

@@ -5,5 +5,5 @@ import androidx.annotation.StringRes
 data class NavigationDrawerItem(
     @StringRes
     val labelId: Int,
-    val isSelected: Boolean
+    var isSelected: Boolean = false
 )

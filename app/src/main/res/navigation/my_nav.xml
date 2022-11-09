@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
     app:startDestination="@id/mainScreen">
-
     <fragment
         android:id="@+id/mainScreen"
         android:name="co.proexe.ui.screen.MainScreen"
-        android:label="screen_main"
-        tools:layout="@layout/screen_main" />
+        android:label="screen_drawer"
+        tools:layout="@layout/screen_drawer" />
 </navigation>
