@@ -1,5 +1,8 @@
 package co.proexe.ui.viewModel.impl
 
+import android.view.MenuItem
+import android.view.View
+import android.widget.PopupMenu
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,6 +10,7 @@ import co.proexe.model.data.DayTile
 import co.proexe.model.data.NavigationDrawerItem
 import co.proexe.model.data.NavigationDrawerModel
 import co.proexe.model.data.TvProgramme
+import co.proexe.model.repository.AppRepository
 import co.proexe.model.repository.DrawerRepository
 import co.proexe.model.repository.LocalEpgRepository
 import co.proexe.model.repository.TimeRepository
@@ -21,7 +25,8 @@ import javax.inject.Inject
 class MainScreenViewModelImpl @Inject constructor(
     private val localEpgRepository: LocalEpgRepository,
     private val timeRepository: TimeRepository,
-    private val drawerRepository: DrawerRepository
+    private val drawerRepository: DrawerRepository,
+    private val appRepository: AppRepository
 ) : ViewModel(), MainScreenViewModel {
 
     override val drawerDataLiveData = MutableLiveData<NavigationDrawerModel>()
@@ -30,6 +35,8 @@ class MainScreenViewModelImpl @Inject constructor(
     override val isDrawerOpenLiveData = MutableLiveData<Boolean>()
     override val selectedCategory = MutableLiveData<NavigationDrawerItem>()
     override val selectedProgram = MutableLiveData<TvProgramme>()
+    override val menuLiveData = MutableLiveData<PopupMenu>()
+    override val selectedMenuLiveData = MutableLiveData<MenuItem>()
 
 
     init {
@@ -82,5 +89,15 @@ class MainScreenViewModelImpl @Inject constructor(
     override fun selectProgramCategory(programCategory: NavigationDrawerItem) {
         selectedCategory.value = programCategory
         closeDrawer()
+    }
+
+    override fun loadMenu(view: View) {
+        val menu = PopupMenu(view.context, view)
+        appRepository.getMenuItems().forEach { menu.menu.add(it.name) }
+        menuLiveData.value = menu
+    }
+
+    override fun selectMenu(item: MenuItem) {
+        selectedMenuLiveData.value = item
     }
 }

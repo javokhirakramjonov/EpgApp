@@ -1,7 +1,9 @@
 package co.proexe.ui.screen
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -35,9 +37,12 @@ class MainScreen : Fragment(R.layout.screen_drawer) {
         super.onCreate(savedInstanceState)
         viewModel.selectedProgram.observe(this, selectProgramObserver)
         viewModel.selectedCategory.observe(this, selectCategoryObserver)
+        viewModel.selectedMenuLiveData.observe(this, selectMenuObserver)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.loadMenu(binding.mainScreen.buttonMenu)
+
         binding.apply {
             mainScreen.apply {
                 adapterChannel.setSelector {
@@ -56,6 +61,10 @@ class MainScreen : Fragment(R.layout.screen_drawer) {
                 buttonDrawer.setOnClickListener {
                     viewModel.openDrawer()
                 }
+
+                buttonMenu.setOnClickListener {
+
+                }
             }
 
             adapterDrawer.setSelector {
@@ -65,10 +74,22 @@ class MainScreen : Fragment(R.layout.screen_drawer) {
             rvProgrammes.layoutManager = LinearLayoutManager(requireContext())
         }
 
+        viewModel.menuLiveData.observe(viewLifecycleOwner, menuObserver)
         viewModel.drawerDataLiveData.observe(viewLifecycleOwner, drawerDataObserver)
         viewModel.isDrawerOpenLiveData.observe(viewLifecycleOwner, drawerObserver)
         viewModel.timeLiveData.observe(viewLifecycleOwner, timesObserver)
         viewModel.programmesLiveData.observe(viewLifecycleOwner, programmesObserver)
+    }
+
+    private val selectMenuObserver = Observer<MenuItem> {
+        Toast.makeText(requireContext(), it.title, Toast.LENGTH_SHORT).show()
+    }
+
+    private val menuObserver = Observer<PopupMenu> { menu ->
+        binding.mainScreen.buttonMenu.setOnClickListener {
+            menu.show()
+            //listeners...
+        }
     }
 
     private val selectProgramObserver = Observer<TvProgramme> {
